@@ -1,1 +1,1 @@
-# discordpy-heroku
+# Running discord.py on Heroku
