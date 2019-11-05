@@ -1,11 +1,11 @@
 import os
 from discord.ext import commands
 
-bot = commands.Bot(command_prefix='!')
+client = commands.Bot(command_prefix='!')
 token = os.getenv('DISCORD_TOKEN')
 
-@bot.event
+@client.event
 async def on_ready():
-    print(f'Logged in as {bot.user.name}(id:{bot.user.id})')
+    print(f'Logged in as {client.user.name}(id:{client.user.id})')
 
-bot.run(token)
+client.run(token)
