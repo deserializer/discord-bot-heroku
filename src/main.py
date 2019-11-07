@@ -8,4 +8,8 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 async def on_ready():
     print(f'Logged in as {bot.user.name}(id:{bot.user.id})')
 
+@bot.command()
+async def ping(ctx):
+    await ctx.send('pong')
+
 bot.run(TOKEN)
