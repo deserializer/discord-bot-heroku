@@ -5,7 +5,6 @@ You must have an account for Discord [[Link](https://discordapp.com/developers/a
 
 ### How do I create a bot and get a bot token?
 * Create an application in the developer portal by clicking [here](https://discordapp.com/developers/applications/)
-* Heroku [[1. Account Registration](https://signup.heroku.com/)].
 * Open up your new application and click 'Add Bot' under the Bot settings to create your bot.
 * After creating the bot, click the 'Copy' button under the title Token. Take note of your token as you will need it later.
 
