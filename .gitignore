@@ -1,5 +1,9 @@
-# Mac OS files
+# MacOS files
 .DS_Store
+
+#Repl.it packager files
+poetry.lock
+pyproject.toml
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
