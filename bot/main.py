@@ -7,7 +7,7 @@ import urllib.parse, urllib.request, re
 prefix="cs!"
 
 client = commands.Bot(command_prefix=prefix)
-token = os.getenv("TOKEN")
+token = os.getenv("DISCORD_TOKEN")
 
 def replaceSpaces(string): 
   string = string.strip() 
