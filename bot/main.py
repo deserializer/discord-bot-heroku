@@ -3,7 +3,7 @@ from discord.ext import commands
 import urllib.parse, urllib.request, re
 
 #UptimeRobot is being weird, so i'm using GitHub to take this code and host it on Heroku.
-#boost my server at discord.gg/KXX7BHE
+#boost my server at https://discord.gg/6GPjN8C
 prefix="cs!"
 
 client = commands.Bot(command_prefix=prefix)
