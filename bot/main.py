@@ -1,4 +1,4 @@
-import os
+import os, server
 from discord.ext import commands
 
 bot = commands.Bot(command_prefix="!")
@@ -12,5 +12,5 @@ async def on_ready():
 async def ping(ctx):
     await ctx.send("pong")
 
-if __name__ == "__main__":
-    bot.run(TOKEN)
+server.server()
+bot.run(TOKEN)
