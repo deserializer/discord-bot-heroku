@@ -1,6 +1,7 @@
 # Hosting your discord.py bot on Heroku
-### What are the prerequisites for this guide?
-You must have an account for Discord [[Link](https://discordapp.com/developers/applications/)], GitHub [[Link](https://github.com/join)] , and Heroku [[Link](https://signup.heroku.com/)].
+[![Run on Repl.it](https://repl.it/badge/github/syntax-corp/discordpy-replit-heroku)](https://repl.it/github/syntax-corp/discordpy-replit-heroku)
+### Prerequisites
+You must have an account for [Discord](https://discord.com/register), [GitHub](https://github.com/join) , [Heroku](https://signup.heroku.com/), and [Repl.it](https://repl.it/signup).
 
 ### How do I create a bot and get a bot token?
 * Create an application in the developer portal by clicking [here](https://discordapp.com/developers/applications/)
