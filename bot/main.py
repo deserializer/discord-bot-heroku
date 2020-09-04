@@ -1,6 +1,6 @@
 import discord, os, server
 from discord.ext import commands
-import urllib.parse, urllib.request, re
+import urllib.parse, urllib.request, re, webbrowser
 
 #UptimeRobot is being weird, so i'm using GitHub to take this code and host it on Heroku.
 #boost my server at https://discord.gg/6GPjN8C
@@ -54,7 +54,7 @@ async def on_message(message):
     if resultr[-1] == "":
       await message.channel.send("Error :face_with_raised_eyebrow:, no query given")
     else:
-      await message.channel.send(f"https://replsearch.johndo3.repl.co/results?q={replaceSpaces(resultr[-1])}")
+      await webbrowser.open_new_tab(f"https://replsearch.johndo3.repl.co/results?q={replaceSpaces(resultr[-1])}")
 
   elif msg.startswith("cs!replsearch"):
     await message.channel.send("Error :face_with_raised_eyebrow:, no query given")
@@ -64,7 +64,7 @@ async def on_message(message):
     if resultt[-1] == "":
       await message.channel.send("Error :face_with_raised_eyebrow:, no query given")
     else:
-      await message.channel.send(f"https://twitch.tv/search?term={replaceSpaces(resultt[-1])}")
+      await webbrowser.open_new_tab(f"https://twitch.tv/search?term={replaceSpaces(resultt[-1])}")
 
   elif msg.startswith("cs!twitch"):
     await message.channel.send("Error :face_with_raised_eyebrow:, no query given")
@@ -74,7 +74,7 @@ async def on_message(message):
     if resulty[-1] == "":
       await message.channel.send("Error :face_with_raised_eyebrow:, no query given")
     else:
-      await message.channel.send(f"https://www.youtube.com/results?search_query={replaceSpaces(resulty[-1])}")
+      await webbrowser.open_new_tab(f"https://www.youtube.com/results?search_query={replaceSpaces(resulty[-1])}")
 
   elif msg.startswith("cs!youtube"):
     await message.channel.send("Error :face_with_raised_eyebrow:, no query given")
@@ -84,7 +84,7 @@ async def on_message(message):
     if result[-1] == "":
       await message.channel.send("Error :face_with_raised_eyebrow:, no query given")
     else:
-      await message.channel.send(f"https://www.google.com/search?q={replaceSpaces(result[-1])}")
+      await webbrowser.open_new_tab(f"https://www.google.com/search?q={replaceSpaces(result[-1])}")
 
   elif msg.startswith("cs!google"):
     await message.channel.send("Error :face_with_raised_eyebrow:, no query given")
