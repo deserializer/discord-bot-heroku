@@ -1,16 +1,16 @@
-# Hosting your discord.py bot on Heroku
+# Hosting your repl based discord.py bot on Heroku to keep it running **INDEFINETLY**
 [![Run on Repl.it](https://repl.it/badge/github/syntax-corp/discordpy-replit-heroku)](https://repl.it/github/syntax-corp/discordpy-replit-heroku)
 ### Prerequisites
 You must have an account for [Discord](https://discord.com/register), [GitHub](https://github.com/join) , [Heroku](https://signup.heroku.com/), and [Repl.it](https://repl.it/signup).
 
-### How do I create a bot and get a bot token?
-* Create an application in the developer portal by clicking [here](https://discordapp.com/developers/applications/)
+### 1. Create a bot and get its token
+* Create an application in the developer portal [here](https://discordapp.com/developers/applications/)
 * Open up your new application and click 'Add Bot' under the Bot settings to create your bot.
 * After creating the bot, click the 'Copy' button under the title Token. Take note of your token as you will need it later.
 
-### How to fork the repository and set it up to work with Heroku?
+### 2. Fork the repository and set it up to work with Heroku
 * Fork a copy of this repository by clicking the 'Fork' on the upper right-hand.
-* Create an application for Heroku by clicking [here](https://dashboard.heroku.com/new-app).
+* Create an application for Heroku [here](https://dashboard.heroku.com/new-app).
 * Under 'Deploy', do the following:
   * Deployment Method => Connect your GitHub
   * App connected to GitHub => Search for the forked repository
@@ -25,6 +25,4 @@ You must have an account for [Discord](https://discord.com/register), [GitHub](h
   * Click 'Confirm' to finalize the decision.
   * NOTE: You are allocated 550 free Dyno hours, which will not last the entire month. However, if you provide a credit card to verify your identity, you are given an additional 450 hours, which will allow your bot to run indefinitely.
 
-# TO-DO LIST
-* Revise the tutorial to be easier to understand for any user.
-* Add some images for following along with the process.
+### Original code belongs to audieni. I just made it more suitable for repl.it bot creators. Visit his repo [here](https://github.com/audieni/discord-py-heroku)
