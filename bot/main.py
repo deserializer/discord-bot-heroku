@@ -37,7 +37,7 @@ async def on_ready():
     print(f"Logged in as {client.user.name}({client.user.id})")
 
 @client.command()
-async def hello(ctx):
+async def hello(ctx, message):
     await ctx.send(f"hello, @{message.author}!")
 
 @client.command()
