@@ -1,6 +1,9 @@
 # Mac OS files
 .DS_Store
 
+#setup.py
+setup.py
+
 #Repl.it packager files
 poetry.lock
 pyproject.toml
