@@ -33,21 +33,23 @@ def replaceSpaces(string):
 
 @client.event
 async def on_ready():
-  await client.change_presence(activity=discord.Game(name="cs!help || made with <3 by Syntax Corp"))
+    await client.change_presence(activity=discord.Game(name="cs!help || made with <3 by Syntax Corp"))
+    print(f"Logged in as {client.user.name}({client.user.id})")
+
+@client.command()
+async def hello(ctx):
+    await ctx.send(f"hello, @{message.author}!")
+
+@client.command()
+async def help(ctx):
+   await ctx.send("commands: cs!hello, cs!replsearch <query>, cs!twitch <query>, cs!youtube <query>, cs!google <query>")
 
 @client.event
 async def on_message(message):
-  
   msg = message.content.lower()
   
   if message.author == client.user:
     return
-  
-  elif msg.startswith("cs!hello"):
-    await message.channel.send(f"hello, @{message.author}!")
-  
-  elif msg.startswith("cs!help"):
-    await message.channel.send("commands: cs!hello, cs!replsearch <query>, cs!twitch <query>, cs!youtube <query>, cs!google <query>")
   
   elif msg.startswith("cs!replsearch "):
     resultr = msg.split('cs!replsearch ', 1)
