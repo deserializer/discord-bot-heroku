@@ -6,7 +6,7 @@ import urllib.parse, urllib.request, re, webbrowser
 #boost my server at https://discord.gg/6GPjN8C
 prefix="cs!"
 
-client = commands.Bot(command_prefix=prefix)
+client = commands.Bot(command_prefix = prefix)
 token = os.getenv("DISCORD_TOKEN")
 
 def replaceSpaces(string): 
@@ -35,14 +35,6 @@ def replaceSpaces(string):
 async def on_ready():
     await client.change_presence(activity=discord.Game(name="cs!help || made with <3 by Syntax Corp"))
     print(f"Logged in as {client.user.name}({client.user.id})")
-
-@client.command()
-async def hello(ctx, message):
-    await ctx.send(f"hello, @{message.author}!")
-
-@client.command()
-async def help(ctx):
-   await ctx.send("commands: cs!hello, cs!replsearch <query>, cs!twitch <query>, cs!youtube <query>, cs!google <query>")
 
 @client.event
 async def on_message(message):
@@ -93,6 +85,15 @@ async def on_message(message):
   
   elif msg.startswith("cs!"):
     await message.channel.send("Error :face_with_raised_eyebrow:, not a valid command")
+  await client.process_commands(message)
+
+@client.command()
+async def hello(ctx, message):
+    await ctx.send(f"hello, @{message.author}!")
+
+@client.command()
+async def help(ctx):
+   await ctx.send("commands: cs!hello, cs!replsearch <query>, cs!twitch <query>, cs!youtube <query>, cs!google <query>")
 
 server.server()
 client.run(token)
