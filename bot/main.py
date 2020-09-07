@@ -6,8 +6,8 @@ import urllib.parse, urllib.request, re, webbrowser
 #boost my server at https://discord.gg/6GPjN8C
 prefix="cs!"
 
-client = commands.Bot(command_prefix = prefix)
 token = os.getenv("DISCORD_TOKEN")
+client = commands.Bot(command_prefix = prefix)
 
 def replaceSpaces(string): 
   string = string.strip() 
@@ -87,8 +87,8 @@ async def on_message(message):
     await message.channel.send("Error :face_with_raised_eyebrow:, not a valid command")
   await client.process_commands(msg)
 
-@client.command()
-async def hello(ctx, message):
+@client.command(name = 'hello')
+async def hello(ctx,message):
     await ctx.send(f"hello, @{message.author}!")
 
 @client.command()
