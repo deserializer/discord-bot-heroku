@@ -85,7 +85,7 @@ async def on_message(message):
   
   elif msg.startswith("cs!"):
     await message.channel.send("Error :face_with_raised_eyebrow:, not a valid command")
-  await client.process_commands(message)
+  await client.process_commands(msg)
 
 @client.command()
 async def hello(ctx, message):
