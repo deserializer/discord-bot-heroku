@@ -35,58 +35,6 @@ def replaceSpaces(string):
 async def on_ready():
     await client.change_presence(activity=discord.Game(name="cs!help for help || made with <3 by Syntax Corp")
 
-'''@client.event
-async def on_message(message):
-  msg = message.content.lower()
-  
-  await client.process_commands(msg)
-
-  if message.author == client.user:
-    return
-  
-  elif msg.startswith("cs!replsearch "):
-    resultr = msg.split('cs!replsearch ', 1)
-    if resultr[-1] == "":
-      await message.channel.send("Error :face_with_raised_eyebrow:, no query given")
-    else:
-      await message.channel.send(f"https://replsearch.johndo3.repl.co/results?q={replaceSpaces(resultr[-1])}")
-
-  elif msg.startswith("cs!replsearch"):
-    await message.channel.send("Error :face_with_raised_eyebrow:, no query given")
-  
-  elif msg.startswith("cs!twitch "):
-    resultt = msg.split('cs!twitch ', 1)
-    if resultt[-1] == "":
-      await message.channel.send("Error :face_with_raised_eyebrow:, no query given")
-    else:
-      await message.channel.send(f"https://twitch.tv/search?term={replaceSpaces(resultt[-1])}")
-
-  elif msg.startswith("cs!twitch"):
-    await message.channel.send("Error :face_with_raised_eyebrow:, no query given")
-
-  elif msg.startswith("cs!youtube "):
-    resulty = msg.split('cs!youtube ', 1)
-    if resulty[-1] == "":
-      await message.channel.send("Error :face_with_raised_eyebrow:, no query given")
-    else:
-      await message.channel.send(f"https://www.youtube.com/results?search_query={replaceSpaces(resulty[-1])}")
-
-  elif msg.startswith("cs!youtube"):
-    await message.channel.send("Error :face_with_raised_eyebrow:, no query given")
-
-  elif msg.startswith("cs!google "):
-    result = msg.split('cs!google ', 1)
-    if result[-1] == "":
-      await message.channel.send("Error :face_with_raised_eyebrow:, no query given")
-    else:
-      await message.channel.send(f"https://www.google.com/search?q={replaceSpaces(result[-1])}")
-
-  elif msg.startswith("cs!google"):
-    await message.channel.send("Error :face_with_raised_eyebrow:, no query given")
-  
-  elif msg.startswith("cs!"):
-    await message.channel.send("Error :face_with_raised_eyebrow:, not a valid command")'''
-
 @client.command()
 async def hello(ctx, User):
     await ctx.send(f"hello, @{User.name}!")
