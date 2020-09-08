@@ -99,7 +99,7 @@ async def _8ball(ctx, *, question):
               "Outlook not so good.",
               "Very doubtful."]
   embed = make_embed(title="Magic 8 Ball", desc="")
-  embed.add_field(name=random.choice(responses))
+  embed.add_field(name=random.choice(responses), value="")
   await ctx.send(embed=embed)
 
 @client.command(aliases=['surprise'])
