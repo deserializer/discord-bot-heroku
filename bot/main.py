@@ -98,7 +98,9 @@ async def _8ball(ctx, *, question):
               "My sources say no.",
               "Outlook not so good.",
               "Very doubtful."]
-  await ctx.send(random.choice(responses))
+  embed = make_embed(title="Magic 8 Ball", desc="")
+  embed.add_field(name=random.choice(responses))
+  await ctx.send(embed=embed)
 
 @client.command(aliases=['surprise'])
 async def rickroll(ctx):
