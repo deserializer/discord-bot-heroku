@@ -49,7 +49,7 @@ async def on_command_error(ctx, error):
 @client.command()
 async def help(ctx):
     embed = make_embed(title="Help", desc="")
-    embed.add_field(name="Commands", value=f"{prefix}hello (aliases: {prefix}hi, {prefix}hey), {prefix}ping, {prefix}repl, {prefix}twitch, {prefix}youtube, {prefix}google, {prefix}8ball")
+    embed.add_field(name="Commands", value=f"{prefix}hello (aliases: {prefix}hi, {prefix}hey), {prefix}ping, {prefix}repl, {prefix}twitch, {prefix}youtube, {prefix}google, {prefix}8ball, {prefix}surprise")
     await ctx.send(embed=embed)
 
 @client.command(aliases=['hi', 'hey'])
@@ -99,5 +99,10 @@ async def _8ball(ctx, *, question):
               "Outlook not so good.",
               "Very doubtful."]
   await ctx.send(random.choice(responses))
+
+@client.command(aliases=['surprise'])
+async def rickroll(ctx):
+  await ctx.send("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+
 server.server()
 client.run(token)
