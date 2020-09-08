@@ -33,10 +33,9 @@ def replaceSpaces(string):
 
 @client.event
 async def on_ready():
-    await client.change_presence(activity=discord.Game(name="cs!help || made with <3 by Syntax Corp"))
-    print(f"Logged in as {client.user.name}({client.user.id})")
+    await client.change_presence(activity=discord.Game(name="cs!help for help || made with <3 by Syntax Corp")
 
-@client.event
+'''@client.event
 async def on_message(message):
   msg = message.content.lower()
   
@@ -86,7 +85,7 @@ async def on_message(message):
     await message.channel.send("Error :face_with_raised_eyebrow:, no query given")
   
   elif msg.startswith("cs!"):
-    await message.channel.send("Error :face_with_raised_eyebrow:, not a valid command")
+    await message.channel.send("Error :face_with_raised_eyebrow:, not a valid command")'''
 
 @client.command()
 async def hello(ctx, User):
