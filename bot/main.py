@@ -36,7 +36,7 @@ async def on_ready():
     await client.change_presence(activity=discord.Game(name="cs!help || made with <3 by Syntax Corp"))
     print(f"Logged in as {client.user.name}({client.user.id})")
 
-'''@client.event
+@client.event
 async def on_message(message):
   msg = message.content.lower()
   
@@ -85,11 +85,11 @@ async def on_message(message):
   
   elif msg.startswith("cs!"):
     await message.channel.send("Error :face_with_raised_eyebrow:, not a valid command")
-  await client.process_commands(msg)'''
+  await client.process_commands(msg)
 
 @client.command()
-async def hello(ctx):
-    await ctx.send(f"hello, @{discord.User.name}!")
+async def hello(ctx, User):
+    await ctx.send(f"hello, @{User.name}!")
 
 server.server()
 client.run(token)
