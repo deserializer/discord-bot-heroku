@@ -40,6 +40,8 @@ async def on_ready():
 async def on_message(message):
   msg = message.content.lower()
   
+  await client.process_commands(msg)
+
   if message.author == client.user:
     return
   
@@ -82,8 +84,6 @@ async def on_message(message):
 
   elif msg.startswith("cs!google"):
     await message.channel.send("Error :face_with_raised_eyebrow:, no query given")
-  
-  await client.process_commands(msg)
   
   elif msg.startswith("cs!"):
     await message.channel.send("Error :face_with_raised_eyebrow:, not a valid command")
