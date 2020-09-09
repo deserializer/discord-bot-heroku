@@ -49,7 +49,7 @@ async def on_command_error(ctx, error):
 @client.command()
 async def help(ctx):
     embed = make_embed(title="Help", desc="")
-    embed.add_field(name="Commands", value=f"{prefix}hello (aliases: {prefix}hi, {prefix}hey), {prefix}ping, {prefix}repl, {prefix}twitch, {prefix}youtube, {prefix}google, {prefix}8ball, {prefix}surprise")
+    embed.add_field(name="Commands", value=f"{prefix}hello (aliases: {prefix}hi, {prefix}hey), {prefix}ping, {prefix}repl, {prefix}twitch, {prefix}youtube, {prefix}google, {prefix}8ball")
     await ctx.send(embed=embed)
 
 @client.command(aliases=['hi', 'hey'])
