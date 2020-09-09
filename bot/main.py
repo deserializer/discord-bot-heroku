@@ -97,7 +97,7 @@ async def _8ball(ctx, *, question):
               "My sources say no.",
               "Outlook not so good.",
               "Very doubtful."]
-  embed = make_embed(title="Magic 8 Ball", desc="", color=discord.Color.black())
+  embed = make_embed(title="Magic 8 Ball", desc="", color=discord.Color.red())
   embed.add_field(name=":8ball:", value=random.choice(responses))
   await ctx.send(embed=embed)
 
