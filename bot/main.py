@@ -8,9 +8,8 @@ prefix="cs!"
 token=os.getenv('DISCORD_TOKEN')
 client = commands.Bot(command_prefix=prefix)
 client.remove_command('help')
-color = discord.Color.red()
 
-def make_embed(title, desc):
+def make_embed(title, desc, color):
   return discord.Embed(title=title, description=desc, color=color)
 
 def replaceSpaces(string): 
@@ -42,13 +41,13 @@ async def on_ready():
 
 @client.event
 async def on_command_error(ctx, error):
-  embed = make_embed(title="Error", desc="")
+  embed = make_embed(title="Error", desc="", color=discord.Color.red())
   embed.add_field(name=":face_with_raised_eyebrow: ", value=error)
   await ctx.send(embed=embed)
 
 @client.command()
 async def help(ctx):
-    embed = make_embed(title="Help", desc="")
+    embed = make_embed(title="Help", desc="", color=discord.Color.red())
     embed.add_field(name="Commands", value=f"{prefix}hello (aliases: {prefix}hi, {prefix}hey), {prefix}ping, {prefix}repl, {prefix}twitch, {prefix}youtube, {prefix}google, {prefix}8ball")
     await ctx.send(embed=embed)
 
@@ -98,7 +97,7 @@ async def _8ball(ctx, *, question):
               "My sources say no.",
               "Outlook not so good.",
               "Very doubtful."]
-  embed = make_embed(title="Magic 8 Ball", desc="")
+  embed = make_embed(title="Magic 8 Ball", desc="", color=discord.Color.black())
   embed.add_field(name=":8ball:", value=random.choice(responses))
   await ctx.send(embed=embed)
 
