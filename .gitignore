@@ -1,6 +1,9 @@
 # MacOS files
 .DS_Store
 
+#Vscode files
+.vscode/
+
 #Repl.it packager files
 poetry.lock
 pyproject.toml
