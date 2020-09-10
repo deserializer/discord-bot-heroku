@@ -4,13 +4,14 @@ import os
 
 app = Flask('')
 port = os.getenv('PORT')
+host = os.getenv('HOST')
 
 @app.route('/')
 def main():
   return render_template('index.html')
 
 def run():
-  app.run(host='0.0.0.0', port=port)
+  app.run(host=host, port=port)
 
 def server():
   server = Thread(target=run)
