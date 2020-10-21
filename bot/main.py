@@ -138,12 +138,12 @@ async def challengeme(ctx):
     mapchoice = choosemap()
     scavnum = random.randint(3,9)
     pmcnum = random.randint(0,3)
-    challenge = "Then, go to",mapchoice,". Kill",scavnum,"scavs and",pmcnum,"PMCs for me. It only counts if you use the",weapchoice,"to do it."
+    challenge = "OK then, go to",mapchoice,". Kill",scavnum,"scavs and",pmcnum,"PMCs for me. It only counts if you use the",weapchoice,"to do it."
     embed = discord.Embed(
         color= discord.Color.dark_purple()
     )
     embed.set_author(name="You Ready?")
-    embed.add_field(name="OK", value=challenge,inline = False)
+    embed.add_field(name=challenge, value=" ",inline = False)
     embed.add_field(name="Too hard for you?", value="Pussy", inline=False)
     await ctx.send(embed=embed)
 
