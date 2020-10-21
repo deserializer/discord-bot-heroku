@@ -124,6 +124,6 @@ async def loadout(ctx):
     embed.add_field(name="Helmet:", value=helmchoice, inline=False)
     await ctx.send(embed=embed)
 
-TOKEN = open("BotToken.txt","r").readline()
+TOKEN = os.getenv("DISCORD_TOKEN")
 
 client.run(TOKEN)
