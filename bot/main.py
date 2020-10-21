@@ -1,6 +1,7 @@
 #Lark2002's Tarkov Challenge Generator V0.01
 import discord
 from discord.ext import commands
+import os
 import random
 client = commands.Bot(command_prefix = "!")
 def weaponchoose():
