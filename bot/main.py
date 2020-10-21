@@ -161,6 +161,7 @@ async def commands(ctx):
     embed.add_field(name="!armor:", value="Will choose armor for you", inline=False)
     embed.add_field(name="!helmet:", value="Will choose a helmet for you", inline=False)
     embed.add_field(name="!loadout:", value="Will choose a full loadout for you", inline=False)
+    embed.add_field(name="!challengeme:", value="Feeling brave? I doubt you're up to this", inline=False)
     await ctx.send(embed=embed)
 TOKEN = os.getenv("DISCORD_TOKEN")
 
