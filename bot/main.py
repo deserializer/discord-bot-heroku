@@ -136,7 +136,9 @@ async def challengeme(ctx):
     weapchoice = weaponchoose()
     helmchoice = helmetchoose()
     mapchoice = choosemap()
-    challenge = "Then, go to",mapchoice,". Kill",str(random.randint(3,9)),"scavs and",str(random.randint(0,3)),"PMCs for me. It only counts if you use the",weapchoice,"to do it."
+    scavnum = random.randint(3,9)
+    pmcnum = random.randint(0,3)
+    challenge = "Then, go to",mapchoice,". Kill",scavnum,"scavs and",pmcnum,"PMCs for me. It only counts if you use the",weapchoice,"to do it."
     embed = discord.Embed(
         color= discord.Color.dark_purple()
     )
