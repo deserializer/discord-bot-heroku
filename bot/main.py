@@ -124,7 +124,18 @@ async def loadout(ctx):
     embed.add_field(name="Armor:", value=armorchoice, inline=False)
     embed.add_field(name="Helmet:", value=helmchoice, inline=False)
     await ctx.send(embed=embed)
-
+#help command
+@client.command()
+async def help(ctx):
+    embed = discord.Embed(
+        color= discord.Color.dark_purple()
+    )
+    embed.set_author(name="Help : list of commands available")
+    embed.add_field(name="!weapon", value="Will choose a weapon for you",inline = False)
+    embed.add_field(name="!armor:", value="Will choose armor for you", inline=False)
+    embed.add_field(name="!helmet:", value="Will choose a helmet for you", inline=False)
+    embed.add_field(name="!loadout:", value="Will choose a full loadout for you", inline=False)
+    await ctx.send(embed=embed)
 TOKEN = os.getenv("DISCORD_TOKEN")
 
 client.run(TOKEN)
