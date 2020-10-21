@@ -3,7 +3,7 @@ import discord
 from discord.ext import commands
 import os
 import random
-client.remove_command(‘help’) #delete help command
+client.remove_command("help") #delete help command
 client = commands.Bot(command_prefix = "!")
 def weaponchoose():
     weapcat = ["AR", "Carbines", "LMGs", "SMGs", "Shotguns", "DMR", "Snipers", "Pistols"]
