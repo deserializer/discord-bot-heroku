@@ -73,6 +73,10 @@ def helmetchoose():
     elif helmetclasschoice == "c6":
         helmet = random.choice(c6)
     return helmet
+def choosemap():
+    maps = ["Woods","Customs","Reserve","Interchange","Labs","Factory","Shoreline"]
+    map = random.choice(maps)
+    return map
 
 
 #answers with a weapon choice
@@ -124,6 +128,24 @@ async def loadout(ctx):
     embed.add_field(name="Armor:", value=armorchoice, inline=False)
     embed.add_field(name="Helmet:", value=helmchoice, inline=False)
     await ctx.send(embed=embed)
+
+#challenge creator
+@client.command()
+async def challengeme(ctx):
+    armorchoice = armorchoose()
+    weapchoice = weaponchoose()
+    helmchoice = helmetchoose()
+    mapchoice = choosemap()
+    challenge = "OK then, go to",mapchoice". Kill",random.randint(3,9),"scavs and",random.randint(0,3),"PMCs for me. It only counts if you use the",weapchoice,"to do it."
+    embed = discord.Embed(
+        color= discord.Color.dark_purple()
+    )
+    embed.set_author(name="You Ready?")
+    embed.add_field(name=challenge, value="",inline = False)
+    embed.add_field(name="Too hard for you?", value="Pussy", inline=False)
+    await ctx.send(embed=embed)
+
+
 #help command
 @client.command()
 async def commands(ctx):
