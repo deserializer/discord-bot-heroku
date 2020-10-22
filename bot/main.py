@@ -73,6 +73,10 @@ def helmetchoose():
     elif helmetclasschoice == "c6":
         helmet = random.choice(c6)
     return helmet
+def choosemap():
+    maps = ["Woods","Customs","Reserve","Interchange","Labs","Factory","Shoreline"]
+    map = random.choice(maps)
+    return map
 
 
 #answers with a weapon choice
@@ -124,6 +128,28 @@ async def loadout(ctx):
     embed.add_field(name="Armor:", value=armorchoice, inline=False)
     embed.add_field(name="Helmet:", value=helmchoice, inline=False)
     await ctx.send(embed=embed)
+
+#challenge creator
+@client.command()
+async def challengeme(ctx):
+    armorchoice = armorchoose()
+    weapchoice = weaponchoose()
+    helmchoice = helmetchoose()
+    mapchoice = choosemap()
+    scavnum = random.randint(3,9)
+    pmcnum = random.randint(0,3)
+    embed = discord.Embed(
+        color= discord.Color.dark_purple()
+    )
+    embed.set_author(name="You Ready?")
+    embed.add_field(name="Map", value = mapchoice,inline = False)
+    embed.add_field(name="Scav Kills", value = str(scavnum),inline = False)
+    embed.add_field(name="PMC Kills", value = str(pmcnum),inline = False)
+    embed.add_field(name="Weapon", value = weapchoice,inline = False)
+    embed.add_field(name="Too hard for you?", value="Pussy", inline=False)
+    await ctx.send(embed=embed)
+
+
 #help command
 @client.command()
 async def commands(ctx):
@@ -132,9 +158,10 @@ async def commands(ctx):
     )
     embed.set_author(name="Help : list of commands available")
     embed.add_field(name="!weapon", value="Will choose a weapon for you",inline = False)
-    embed.add_field(name="!armor:", value="Will choose armor for you", inline=False)
-    embed.add_field(name="!helmet:", value="Will choose a helmet for you", inline=False)
-    embed.add_field(name="!loadout:", value="Will choose a full loadout for you", inline=False)
+    embed.add_field(name="!armor", value="Will choose armor for you", inline=False)
+    embed.add_field(name="!helmet", value="Will choose a helmet for you", inline=False)
+    embed.add_field(name="!loadout", value="Will choose a full loadout for you", inline=False)
+    embed.add_field(name="!challengeme", value="Feeling brave? I doubt you're up to this", inline=False)
     await ctx.send(embed=embed)
 TOKEN = os.getenv("DISCORD_TOKEN")
 
