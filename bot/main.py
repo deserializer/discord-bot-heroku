@@ -1,4 +1,4 @@
-#Lark2002's Tarkov Challenge Generator V0.01
+#Lark2002's Tarkov Challenge Generator V0.1
 import discord
 from discord.ext import commands
 import os
@@ -157,11 +157,23 @@ async def commands(ctx):
         color= discord.Color.dark_purple()
     )
     embed.set_author(name="Help : list of commands available")
+    embed.add_field(name="!map", value="Will choose a map for you", inline=False)
     embed.add_field(name="!weapon", value="Will choose a weapon for you",inline = False)
     embed.add_field(name="!armor", value="Will choose armor for you", inline=False)
     embed.add_field(name="!helmets", value="Will choose a helmet for you", inline=False)
     embed.add_field(name="!loadouts", value="Will choose a full loadout for you", inline=False)
     embed.add_field(name="!challengeme", value="Feeling brave? I doubt you're up to this", inline=False)
+    await ctx.send(embed=embed)
+
+#chooses a map
+@client.command()
+async def map(ctx):
+    choice = choosemap()
+    embed = discord.Embed(
+        color= discord.Color.dark_purple()
+    )
+    embed.set_author(name="You get to go die")
+    embed.add_field(name="in", value=choice,inline = False)
     await ctx.send(embed=embed)
 TOKEN = os.getenv("DISCORD_TOKEN")
 
