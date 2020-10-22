@@ -149,6 +149,16 @@ async def challengeme(ctx):
     embed.add_field(name="Too hard for you?", value="Pussy", inline=False)
     await ctx.send(embed=embed)
 
+#chooses a map
+@client.command()
+async def map(ctx):
+    choice = choosemap()
+    embed = discord.Embed(
+        color= discord.Color.dark_purple()
+    )
+    embed.set_author(name="You get to go die in")
+    embed.add_field(name="", value=choice,inline = False)
+    await ctx.send(embed=embed)
 
 #help command
 @client.command()
@@ -165,16 +175,7 @@ async def commands(ctx):
     embed.add_field(name="!challengeme", value="Feeling brave? I doubt you're up to this", inline=False)
     await ctx.send(embed=embed)
 
-#chooses a map
-@client.command()
-async def map(ctx):
-    choice = choosemap()
-    embed = discord.Embed(
-        color= discord.Color.dark_purple()
-    )
-    embed.set_author(name="You get to go die")
-    embed.add_field(name="in", value=choice,inline = False)
-    await ctx.send(embed=embed)
+
 TOKEN = os.getenv("DISCORD_TOKEN")
 
 client.run(TOKEN)
