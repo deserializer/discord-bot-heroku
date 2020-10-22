@@ -157,7 +157,7 @@ async def map(ctx):
         color= discord.Color.dark_purple()
     )
     embed.set_author(name="You get to go die in")
-    embed.add_field(name="", value=choice,inline = False)
+    embed.add_field(name=choice, value="Bring lube",inline = False)
     await ctx.send(embed=embed)
 
 #help command
