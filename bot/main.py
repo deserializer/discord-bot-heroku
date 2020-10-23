@@ -77,6 +77,10 @@ def choosemap():
     maps = ["Woods","Customs","Reserve","Interchange","Labs","Factory","Shoreline"]
     map = random.choice(maps)
     return map
+def chooseboss():
+    bosses = ["Shturman","Glukhar","Killa","Reshala","Sanitar"]
+    boss = random.choice(bosses)
+    return boss
 
 
 #answers with a weapon choice
@@ -160,6 +164,17 @@ async def map(ctx):
     embed.add_field(name=choice, value="Bring lube",inline = False)
     await ctx.send(embed=embed)
 
+#chooses boss
+@client.command()
+async def boss(ctx):
+    choice = chooseboss()
+    embed = discord.Embed(
+        color= discord.Color.dark_purple()
+    )
+    embed.set_author(name="You get to go die in")
+    embed.add_field(name=choice, value="Bring lube",inline = False)
+    await ctx.send(embed=embed)
+
 #help command
 @client.command()
 async def commands(ctx):
@@ -173,6 +188,7 @@ async def commands(ctx):
     embed.add_field(name="!helmets", value="Will choose a helmet for you", inline=False)
     embed.add_field(name="!loadouts", value="Will choose a full loadout for you", inline=False)
     embed.add_field(name="!challengeme", value="Feeling brave? I doubt you're up to this", inline=False)
+    embed.add_field(name="!boss", value="So you want to take on a boss, but which one?", inline=False)
     await ctx.send(embed=embed)
 
 
