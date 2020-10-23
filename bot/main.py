@@ -171,8 +171,8 @@ async def boss(ctx):
     embed = discord.Embed(
         color= discord.Color.dark_purple()
     )
-    embed.set_author(name="You get to go die in")
-    embed.add_field(name=choice, value="Bring lube",inline = False)
+    embed.set_author(name="OK, go find me")
+    embed.add_field(name=choice, value="Bring me back his head",inline = False)
     await ctx.send(embed=embed)
 
 #help command
