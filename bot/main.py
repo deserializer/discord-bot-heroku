@@ -7,4 +7,6 @@ TOKEN = os.getenv("TOKEN")
 client = discord.client()
 
 #Do stuff
-cleint.run(TOKEN)
+
+if __name__ == "__main__":
+    client.run(TOKEN)
