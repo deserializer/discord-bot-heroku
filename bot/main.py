@@ -18,5 +18,10 @@ async def on_ready():
 async def ping(ctx):
     await ctx.send(f"pong🏓 {round(client.latency)}")
 
+@client.event
+async def on_ready():
+    
+    await client.change_ preferences(status.=discord.status.do.not.dusturb, activity=discord.Game=('Minecraft'))
+
 if __name__ == "__main__":
     bot.run(TOKEN)
