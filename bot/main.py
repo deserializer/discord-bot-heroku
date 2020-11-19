@@ -7,4 +7,4 @@ TOKEN = os.getenv("TOKEN")
 client = discord.client()
 
 #Do stuff
-cleint.run("TOKEN")
+cleint.run(TOKEN)
