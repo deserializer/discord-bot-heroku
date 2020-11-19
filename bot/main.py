@@ -8,6 +8,12 @@ TOKEN = os.getenv("DISCORD_TOKEN")
 async def on_ready():
     print(f"Logged in as {bot.user.name}({bot.user.id})")
 
+@bot.event
+async def on_ready():
+    activity = discord.Game(name="Servers", type=3)
+    await bot.change_presence(status=discord.Status.idle, activity=activity)
+    print("Bot is ready!")
+
 @bot.command()
 async def ping(ctx):
     await ctx.send(f"pong🏓 {round(client.latency)}")
