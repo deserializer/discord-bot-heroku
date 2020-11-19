@@ -8,9 +8,9 @@ TOKEN = os.getenv("DISCORD_TOKEN")
 async def on_ready():
     print(f"Logged in as {bot.user.name}({bot.user.id})")
 
-@bot.command('ping')
+@bot.command()
 async def ping(ctx):
-    await ctx.send(f"pong 🏓 {round(cleint.latency)}ms!")
+    await ctx.send(f"pong🏓 {round(client.latency)}")
 
 if __name__ == "__main__":
     bot.run(TOKEN)
