@@ -21,7 +21,7 @@ async def ping(ctx):
 @client.event
 async def on_ready():
     
-    await client.change_preferences(status=discord.status.do.not.dusturb, activity=discord.Game=('Minecraft'))
+    await client.change_preference(status=discord.status.do.not.dusturb, activity=discord.Game=('Minecraft'))
 
 if __name__ == "__main__":
     bot.run(TOKEN)
