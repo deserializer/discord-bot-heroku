@@ -1,5 +1,5 @@
 #import
-import discord
+import os
 
 #cleint (the bot)
 client = discord.client()
