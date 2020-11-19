@@ -10,7 +10,7 @@ async def on_ready():
 
 @bot.command()
 async def ping(ctx):
-    await ctx.send("pong 🏓 {bot.latency}ms!")
+    await ctx.send("pong 🏓 {cleint.latency}ms!")
 
 if __name__ == "__main__":
     bot.run(TOKEN)
