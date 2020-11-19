@@ -1,12 +1,17 @@
-#import
+
 import os
-TOKEN = os.getenv("TOKEN")
+from discord.ext import commands
 
+bot = commands.Bot(command_prefix="!")
+TOKEN = os.getenv("DISCORD_TOKEN")
 
-#cleint (the bot)
-client = discord.client()
+@bot.event
+async def on_ready():
+    print(f"Logged in as {bot.user.name}({bot.user.id})")
 
-#Do stuff
+@bot.command()
+async def ping(ctx):
+    await ctx.send("pong")
 
 if __name__ == "__main__":
-    client.run(TOKEN)
+    bot.run(TOKEN)
