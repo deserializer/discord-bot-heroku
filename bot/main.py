@@ -12,9 +12,5 @@ async def on_ready():
 async def on_ready():
     await bot.change_presence(status=discord.Status.do_not_disturb, activity=discord.Game('Labymod')
 
-@bot.command()
-async def ping(ctx):
-    await ctx.send("pong")
-
 if __name__ == "__main__":
     bot.run(TOKEN)
