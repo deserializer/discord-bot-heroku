@@ -1,4 +1,1 @@
 discord.py
-flask
-PyNaCl
-dnspython
