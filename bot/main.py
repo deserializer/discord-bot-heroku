@@ -1,6 +1,5 @@
 # bot.py
 import os
-from tkinter.ttk import Separator
 from numpy import empty
 import discord
 from dotenv import load_dotenv
