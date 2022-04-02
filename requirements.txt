@@ -1,2 +1,2 @@
 discord.py
-numpy
+numpy==1.18.5
