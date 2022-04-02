@@ -8,8 +8,8 @@ import pandas as pd
 import requests
 import io
 import csv
-
-
+import os.path
+root_path = os.path.dirname(os.path.abspath(__file__))
 
 
 chestLoggsDict = {}
@@ -53,7 +53,7 @@ def chestLoggs(chestLoggsCvsR):
         return chestLoggsDict
 
 def getItemNames():
-    with open('itemNames.txt') as text_file:
+    with open(os.path.join(root_path, "files", "itemNames.txt")) as text_file:
         text_reader = csv.reader(text_file, delimiter=';')
         line_count = 1
         for row in text_reader:
