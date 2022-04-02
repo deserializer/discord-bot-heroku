@@ -2,14 +2,13 @@
 import os
 from numpy import empty
 import discord
-from dotenv import load_dotenv
 from discord.ext.commands import Bot
 from discord import Intents
 import pandas as pd
 import requests
 import io
 import csv
-load_dotenv()
+
 
 
 
