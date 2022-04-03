@@ -214,6 +214,8 @@ async def support(ctx, *args):
         
 @bot.command(pass_context=True)
 async def chest(ctx):
+    itemPartialyMissing = {}
+    itemNotInChest = []
     urlDic = {}
     chestLoggsDict = {}
     lootLogger = {}
