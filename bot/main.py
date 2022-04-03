@@ -9,6 +9,10 @@ import requests
 import io
 import csv
 import os.path
+from flask import Flask, render_template, request, redirect, url_for
+import json, boto3
+
+app = Flask(__name__)
 root_path = os.path.dirname(os.path.abspath(__file__))
 
 
@@ -53,15 +57,29 @@ def chestLoggs(chestLoggsCvsR):
         return chestLoggsDict
 
 def getItemNames():
-    with open(os.path.join(root_path, "files", "itemNames.txt")) as text_file:
-        text_reader = csv.reader(text_file, delimiter=';')
-        line_count = 1
-        for row in text_reader:
-            rowString = row[0].split(':',2)
-            if(len(rowString) !=3):
-                itemNamesDict[rowString[1].rstrip().lstrip()] = ""
-            else:
-                itemNamesDict[rowString[1].rstrip().lstrip()] = rowString[2].lstrip().rstrip()
+    client = boto3.client('s3',
+        aws_access_key_id = os.getenv("AWS_ACCESS_KEY_ID"),
+        aws_secret_access_key = os.getenv("AWS_SECRET_ACCESS_KEY"),
+        region_name = os.getenv("REGION_NAME")
+    )
+    resource = boto3.resource(
+        's3',
+        aws_access_key_id = os.getenv("AWS_ACCESS_KEY_ID"),
+        aws_secret_access_key = os.getenv("AWS_SECRET_ACCESS_KEY"),
+        region_name = os.getenv("REGION_NAME")
+    )
+    obj = client.get_object(
+        Bucket = os.getenv("S3_BUCKET"),
+        Key = os.getenv("itemNames.txt")
+    )
+    lines = obj['Body'].read().decode('utf-8').splitlines(True)
+    data = csv.reader(lines, delimiter=';')
+    for row in data:
+        rowString = row[0].split(':',2)
+        if(len(rowString) !=3):
+            itemNamesDict[rowString[1].rstrip().lstrip()] = ""
+        else:
+            itemNamesDict[rowString[1].rstrip().lstrip()] = rowString[2].lstrip().rstrip()
     return itemNamesDict
 
 def getLootLogger(logLoggerCvsR):
