@@ -257,7 +257,7 @@ async def testing(ctx):
     
     for reaction in msg.reactions:
         await ctx.send(reaction)
-    await msg.delete()
+    # await msg.delete()
     
 @bot.command()
 async def commands(ctx):
