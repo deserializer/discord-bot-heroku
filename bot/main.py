@@ -253,7 +253,7 @@ async def chest(ctx):
 @bot.command()
 async def testing():
     msg = await ctx.send("test")
-    await m.add_reaction("👍")
+    await msg.add_reaction("👍")
     
 @bot.command()
 async def commands(ctx):
