@@ -266,7 +266,7 @@ async def on_raw_reaction_add(payload):
     user = payload.member
     print(reaction)
     print(user)
-    print(type(reaction))
+    print(reaction.count)
     
 @bot.command()
 async def commands(ctx):
