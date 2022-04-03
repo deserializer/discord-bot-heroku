@@ -4,6 +4,7 @@ from numpy import empty
 import discord
 from discord.ext.commands import Bot
 from discord import Intents
+from discord.utils import get
 import pandas as pd
 import requests
 import io
@@ -254,9 +255,8 @@ async def chest(ctx):
 async def testing(ctx):
     msg = await ctx.send("test")
     await msg.add_reaction("❌")
-    
-    for reaction in msg.reactions:
-        await ctx.send(reaction)
+    reaction = get(msg.reactions, emoji ="❌")
+    await ctx.send(reaction)
     # await msg.delete()
     
 @bot.command()
