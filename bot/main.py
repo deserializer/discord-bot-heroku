@@ -253,7 +253,6 @@ async def chest(ctx):
         
 @bot.command()
 async def testing(ctx):
-    await ctx.send(ctx.channel_id)
     msg = await ctx.send("test")
     await msg.add_reaction("❌")
     reaction = get(msg.reactions, emoji ="❌")
