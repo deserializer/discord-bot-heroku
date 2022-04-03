@@ -68,7 +68,7 @@ def getItemNames():
     )
     obj = client.get_object(
         Bucket = os.getenv("S3_BUCKET"),
-        Key = os.getenv("itemNames.txt")
+        Key = os.getenv("S3_FILE_NAME")
     )
     lines = obj['Body'].read().decode('utf-8').splitlines(True)
     data = csv.reader(lines, delimiter=';')
