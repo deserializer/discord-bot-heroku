@@ -239,7 +239,7 @@ async def chest(ctx):
     itemNotInChest = checker(chestLoggsDict,lootLogger)
     if(itemPartialyMissing!=[]):
         itemPartialMissingMsg = await ctx.send("Item Partially Missing")
-        await ctx.message.add_reaction("👍")
+        await itemPartialMissingMsg.message.add_reaction("👍")
         for i in itemPartialyMissing:
             if(itemPartialyMissing[i]['left']!={}):
                 await ctx.send(itemPartialyMissing[i])
