@@ -266,6 +266,8 @@ async def on_raw_reaction_add(payload):
     user = payload.member
     print(reaction)
     print(user)
+    print(type(reaction))
+    
 @bot.command()
 async def commands(ctx):
     await ctx.send("To look a certain role on a user for a spesfic channel use the !X Y. Where X is the name of the role(healer,support,tank) and Y is the name of the channel")
