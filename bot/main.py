@@ -9,11 +9,9 @@ import requests
 import io
 import csv
 import os.path
-from flask import Flask, render_template, request, redirect, url_for
 import json, boto3
 
-app = Flask(__name__)
-root_path = os.path.dirname(os.path.abspath(__file__))
+
 
 
 chestLoggsDict = {}
