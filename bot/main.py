@@ -253,12 +253,21 @@ async def chest(ctx):
         
 @bot.command()
 async def testing(ctx):
+    await ctx.send(ctx.channel_id)
     msg = await ctx.send("test")
     await msg.add_reaction("❌")
     reaction = get(msg.reactions, emoji ="❌")
     await ctx.send(reaction)
     # await msg.delete()
     
+@bot.event
+async def on_raw_reaction_add(payload):
+    message = await bot.get_channel(payload.channel_id).fetch_message(payload.message_id)
+    reaction = discord.utils.get(message.reactions, emoji="❌")
+    user = payload.member
+    await payload.send("test")
+    await payload.send(reaction)
+    await payload.send(user)
 @bot.command()
 async def commands(ctx):
     await ctx.send("To look a certain role on a user for a spesfic channel use the !X Y. Where X is the name of the role(healer,support,tank) and Y is the name of the channel")
