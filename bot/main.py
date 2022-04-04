@@ -264,6 +264,8 @@ async def on_raw_reaction_add(payload):
     message = await bot.get_channel(payload.channel_id).fetch_message(payload.message_id)
     reaction = discord.utils.get(message.reactions, emoji="❌")
     if reaction.count >=2:
+        print(reaction.count)
+        print(type(reaction.count))
         message.delete()
 
     
