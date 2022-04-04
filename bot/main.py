@@ -207,7 +207,10 @@ async def support(ctx, *args):
     for member in channel.members:
         for role in member.roles:
             if( role.name in healerRoles):
-                await ctx.send(member.name)
+                msg = await ctx.send(member.name)
+                await msg.add_reaction("❌")
+                reaction = get(msg.reactions, emoji ="❌")
+                await ctx.send(reaction)
                 break
     await ctx.send("Command executed")
     
@@ -243,13 +246,17 @@ async def chest(ctx):
         await itemPartialMissingMsg.add_reaction("👍")
         for i in itemPartialyMissing:
             if(itemPartialyMissing[i]['left']!={}):
-                await ctx.send(itemPartialyMissing[i])
+                msg = await ctx.send(itemPartialyMissing[i])
+                await msg.add_reaction("❌")
+                reaction = get(msg.reactions, emoji ="❌")
+                await ctx.send(reaction)
     if(itemNotInChest!=[]):
         await ctx.send("Item That was never banked")
         for i in itemNotInChest:
-            await ctx.send(i)
-            if('playerName' in i['looters']):
-                await ctx.send(i)
+            msg2 = await ctx.send(i)
+            reaction = get(msg2.reactions, emoji ="❌")
+            await ctx.send(reaction)
+
         
 @bot.command()
 async def testing(ctx):
@@ -264,9 +271,6 @@ async def on_raw_reaction_add(payload):
     message = await bot.get_channel(payload.channel_id).fetch_message(payload.message_id)
     reaction = discord.utils.get(message.reactions, emoji="❌")
     if reaction.count >=2:
-        print(reaction.count)
-        print(type(reaction.count))
-        print("2222")
         await message.delete()
 
     
@@ -284,9 +288,5 @@ Done:
     * show all members under a certain role. 
     * list all memebers in X voice comms that have certain roles [all tanks roles], [all healrs roles], [all supports role]
     * Logger
-To Do:
-    * Write memebers and their role in google sheet with date of when it was updated? bad cause people could keep removing spec and pringing it back
-    * ping memebers who dont have at least one of certain role
-    
 """
 
