@@ -263,10 +263,9 @@ async def testing(ctx):
 async def on_raw_reaction_add(payload):
     message = await bot.get_channel(payload.channel_id).fetch_message(payload.message_id)
     reaction = discord.utils.get(message.reactions, emoji="❌")
-    user = payload.member
-    print(reaction)
-    print(user)
-    print(reaction.count)
+    if reaction.count >=2:
+        message.delete()
+
     
 @bot.command()
 async def commands(ctx):
