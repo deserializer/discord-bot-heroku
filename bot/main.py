@@ -267,7 +267,7 @@ async def on_raw_reaction_add(payload):
         print(reaction.count)
         print(type(reaction.count))
         print("2222")
-        message.delete()
+        await message.delete()
 
     
 @bot.command()
