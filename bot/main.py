@@ -251,14 +251,15 @@ async def chest(ctx):
             if(itemPartialyMissing[i]['left']!={}):
                 msg = await ctx.send(itemPartialyMissing[i])
                 await msg.add_reaction("❌")
-                reaction = get(msg.reactions, emoji ="❌")
-                await ctx.send(reaction)
+                # reaction = get(msg.reactions, emoji ="❌")
+                # await ctx.send(reaction)
     if(itemNotInChest!=[]):
         await ctx.send("Item That was never banked")
         for i in itemNotInChest:
             msg2 = await ctx.send(i)
-            reaction = get(msg2.reactions, emoji ="❌")
-            await ctx.send(reaction)
+            await msg2.add_reaction("❌")
+            # reaction = get(msg2.reactions, emoji ="❌")
+            # await ctx.send(reaction)
 
         
 @bot.command()
