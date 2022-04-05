@@ -256,6 +256,7 @@ async def chest(ctx):
                 # await ctx.send(reaction)
     if(itemNotInChest!=[]):
         await ctx.send("Item That was never banked")
+        x= ''
         for i in itemNotInChest:
         #     msg2 = await ctx.send(i)
         #     await msg2.add_reaction("❌")
