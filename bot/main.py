@@ -256,12 +256,15 @@ async def chest(ctx):
                 # await ctx.send(reaction)
     if(itemNotInChest!=[]):
         await ctx.send("Item That was never banked")
-        # for i in itemNotInChest:
+        for i in itemNotInChest:
         #     msg2 = await ctx.send(i)
         #     await msg2.add_reaction("❌")
-        reactionAdd =  await ctx.send("List of guests:\n" + "\n".join(str(itemNotInChest)))
+            x = (x + "\n".join(itemNotInChest[i]))
+        print(x)
+        await ctx.send(x)
+            #   x =("List of guests:\n" + "\n".join(str(itemNotInChest)))
         # itemNotInChestMessage = '\n'.join(('start' + line + 'end') for line in itemNotInChest)
-        reactionAdd.add_reaciton("❌")
+        # reactionAdd.add_reaciton("❌")
         
             # reaction = get(msg2.reactions, emoji ="❌")
             # await ctx.send(reaction)
