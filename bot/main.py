@@ -1,4 +1,5 @@
 # bot.py
+from asyncio.windows_events import NULL
 import os
 from numpy import empty
 import discord
@@ -231,10 +232,13 @@ async def chest(ctx):
     if('chestLog.txt' not in urlDic.keys() or 'lootLogger.csv' not in urlDic.keys()):
         await ctx.send("Wrong files uploaded.")
         return
-
+    file_requestChestLog = NULL
+    file_requestLogger = NULL
     file_requestChestLog = requests.get(urlDic['chestLog.txt']).content.decode('utf-8')
     file_requestLogger = requests.get(urlDic['lootLogger.csv']).content.decode('utf-8')
     
+    logLoggerCvsR = NULL
+    chestLoggsCvsR = NULL
     logLoggerCvsR = csv.reader(file_requestLogger.splitlines(), delimiter=';')
     chestLoggsCvsR = csv.reader(file_requestChestLog.splitlines(), delimiter='\t')
     chestLoggsDict = chestLoggs(chestLoggsCvsR)
@@ -243,7 +247,7 @@ async def chest(ctx):
     itemNotInChest = checker(chestLoggsDict,lootLogger)
     if(itemPartialyMissing!=[]):
         itemPartialMissingMsg = await ctx.send("Item Partially Missing")
-        await itemPartialMissingMsg.add_reaction("👍")
+        await itemPartialMissingMsg.add_reaction("❌")
         for i in itemPartialyMissing:
             if(itemPartialyMissing[i]['left']!={}):
                 msg = await ctx.send(itemPartialyMissing[i])
