@@ -113,13 +113,14 @@ def getLootLogger(logLoggerCvsR):
     return lootLogger    
 
 def checker(chestLoggsDict,lootLogger):
+    itemPartialyMissing= {}
     itemNotInChest = []
     for i in lootLogger:#loop through item in logger
         if( i in chestLoggsDict):
-            countByLooters(i)
+            itemPartialyMissing = countByLooters(i)
         else:
             itemNotInChest.append(lootLogger[i])
-    return itemNotInChest
+    return itemNotInChest, itemPartialyMissing
          
 def countByLooters(i):
     itemPartialyMissing[i] = {}
@@ -243,7 +244,7 @@ async def chest(ctx):
     chestLoggsDict = chestLoggs(chestLoggsCvsR)
     lootLogger = getLootLogger(logLoggerCvsR)
 
-    itemNotInChest = checker(chestLoggsDict,lootLogger)
+    itemNotInChest, itemPartialyMissing = checker(chestLoggsDict,lootLogger)
     if(itemPartialyMissing!=[]):
         itemPartialMissingMsg = await ctx.send("Item Partially Missing")
         await itemPartialMissingMsg.add_reaction("❌")
