@@ -260,7 +260,7 @@ async def chest(ctx):
         for i in itemNotInChest:
         #     msg2 = await ctx.send(i)
         #     await msg2.add_reaction("❌")
-            x = (x + "\n".join(itemNotInChest[i]))
+            x = (x + "\n".join(str(itemNotInChest[i])))
         print(x)
         await ctx.send(x)
             #   x =("List of guests:\n" + "\n".join(str(itemNotInChest)))
