@@ -261,6 +261,8 @@ async def chest(ctx):
             await msg2.add_reaction("❌")
             # reaction = get(msg2.reactions, emoji ="❌")
             # await ctx.send(reaction)
+        msg3 = await ctx.send(itemNotInChest)
+        await msg2.add_reaction("❌")
 
         
 @bot.command()
