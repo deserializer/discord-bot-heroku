@@ -1,5 +1,4 @@
 # bot.py
-from asyncio.windows_events import NULL
 import os
 from numpy import empty
 import discord
