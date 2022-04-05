@@ -259,8 +259,8 @@ async def chest(ctx):
         # for i in itemNotInChest:
         #     msg2 = await ctx.send(i)
         #     await msg2.add_reaction("❌")
-        itemNotInChestMessage = '\n'.join(('start' + line + 'end') for line in itemNotInChest)
-        reactionAdd = await ctx.send(itemNotInChestMessage)
+        reactionAdd =  await ctx.send("List of guests:\n" + "\n".join(str(itemNotInChest)))
+        # itemNotInChestMessage = '\n'.join(('start' + line + 'end') for line in itemNotInChest)
         reactionAdd.add_reaciton("❌")
         
             # reaction = get(msg2.reactions, emoji ="❌")
