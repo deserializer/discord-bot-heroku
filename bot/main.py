@@ -18,8 +18,6 @@ import json, boto3
 chestLoggsDict = {}
 lootLogger = {}
 itemNamesDict = {}
-itemPartialyMissing = {}
-itemNotInChest = []
 TOKEN = os.getenv("DISCORD_TOKEN")
 intents = discord.Intents.default()
 intents.members = True
@@ -27,9 +25,7 @@ client = discord.Client()
 bot = Bot("!",intents=intents)
 
 def chestLoggs(chestLoggsCvsR):
-        line_count = 1
         for row in chestLoggsCvsR:
-
             if(len(row)==6):
                 if(True):
                     itemNameConstant = row[2] + '.' + row[3]
@@ -53,7 +49,7 @@ def chestLoggs(chestLoggsCvsR):
                 else:
                     itemWithdrawn(row)
 
-        return chestLoggsDict
+        # return chestLoggsDict use it
 
 def getItemNames():
     client = boto3.client('s3',
@@ -110,19 +106,19 @@ def getLootLogger(logLoggerCvsR):
             lootLogger[itemNameConstant]['looters']  = [row[1]]
             lootLogger[itemNameConstant]['lootersCounter']  = {}
             lootLogger[itemNameConstant]['lootersCounter'][row[1]] = int(row[3])
-    return lootLogger    
+    # return lootLogger    
 
-def checker(chestLoggsDict,lootLogger):
-    itemPartialyMissing= {}
+def checker():
+    itemPartialyMissing = {}
     itemNotInChest = []
     for i in lootLogger:#loop through item in logger
         if( i in chestLoggsDict):
-            itemPartialyMissing = countByLooters(i)
+            itemPartialyMissing = countByLooters(i,itemPartialyMissing)
         else:
             itemNotInChest.append(lootLogger[i])
     return itemNotInChest, itemPartialyMissing
          
-def countByLooters(i):
+def countByLooters(i,itemPartialyMissing):
     itemPartialyMissing[i] = {}
     itemPartialyMissing[i]['itemName'] = i
     itemPartialyMissing[i]['left'] = {}
@@ -219,11 +215,12 @@ async def support(ctx, *args):
         
 @bot.command(pass_context=True)
 async def chest(ctx):
-    itemPartialyMissing = {}
-    itemNotInChest = []
+    x = ''
+    # itemPartialyMissing = {}
+    # itemNotInChest = []
     urlDic = {}
-    chestLoggsDict = {}
-    lootLogger = {}
+    chestLoggsDict.clear()
+    lootLogger.clear()
     for url in ctx.message.attachments:
         urlSplit = url.url.split('/')
         urlName = urlSplit[len(urlSplit)-1]
@@ -232,45 +229,58 @@ async def chest(ctx):
     if('chestLog.txt' not in urlDic.keys() or 'lootLogger.csv' not in urlDic.keys()):
         await ctx.send("Wrong files uploaded.")
         return
-    file_requestChestLog = None
-    file_requestLogger = None
-    file_requestChestLog = requests.get(urlDic['chestLog.txt']).content.decode('utf-8')
-    file_requestLogger = requests.get(urlDic['lootLogger.csv']).content.decode('utf-8')
     
-    logLoggerCvsR = None
+    
+    file_requestChestLog = None
     chestLoggsCvsR = None
-    logLoggerCvsR = csv.reader(file_requestLogger.splitlines(), delimiter=';')
+    file_requestChestLog = requests.get(urlDic['chestLog.txt']).content.decode('utf-8')
     chestLoggsCvsR = csv.reader(file_requestChestLog.splitlines(), delimiter='\t')
-    chestLoggsDict = chestLoggs(chestLoggsCvsR)
-    lootLogger = getLootLogger(logLoggerCvsR)
+    
+    file_requestLogger = None
+    logLoggerCvsR = None
+    file_requestLogger = requests.get(urlDic['lootLogger.csv']).content.decode('utf-8')
+    logLoggerCvsR = csv.reader(file_requestLogger.splitlines(), delimiter=';')
+    
+    
+    
+    
+    
+    chestLoggs(chestLoggsCvsR)
+    getLootLogger(logLoggerCvsR)
 
-    itemNotInChest, itemPartialyMissing = checker(chestLoggsDict,lootLogger)
+    itemNotInChest, itemPartialyMissing = checker()
     if(itemPartialyMissing!=[]):
-        itemPartialMissingMsg = await ctx.send("Item Partially Missing")
-        await itemPartialMissingMsg.add_reaction("❌")
-        for i in itemPartialyMissing:
+        msg = await ctx.send("Item Partially Missing")
+        y = ''
+        for i in itemPartialyMissing:   
             if(itemPartialyMissing[i]['left']!={}):
-                msg = await ctx.send(itemPartialyMissing[i])
-                await msg.add_reaction("❌")
-                # reaction = get(msg.reactions, emoji ="❌")
-                # await ctx.send(reaction)
+                yBefore = y
+                y = y + '\n' + str(itemPartialyMissing[i])
+                if(len(y)>2000):
+                    y = yBefore
+                    msg = await ctx.send(y)
+                    await msg.add_reaction("❌")
+                    y = ''
+                    y = y + '\n' + str(itemPartialyMissing[i])
+        msg = await ctx.send(y)
+        await msg.add_reaction("❌")
     if(itemNotInChest!=[]):
         await ctx.send("Item That was never banked")
-        x= ''
+        x = ''
         for i in itemNotInChest:
-        #     msg2 = await ctx.send(i)
-        #     await msg2.add_reaction("❌")
-            x = (x + "\n".join(str(itemNotInChest[i])))
-        print(x)
-        await ctx.send(x)
-            #   x =("List of guests:\n" + "\n".join(str(itemNotInChest)))
-        # itemNotInChestMessage = '\n'.join(('start' + line + 'end') for line in itemNotInChest)
-        # reactionAdd.add_reaciton("❌")
-        
-            # reaction = get(msg2.reactions, emoji ="❌")
-            # await ctx.send(reaction)
-        msg3 = await ctx.send(itemNotInChest)
-        await msg3.add_reaction("❌")
+            lenBefore = len(x)
+            xBefore = x
+            x = x + '\n' + "Item Name: " + str(i['itemName']) + '. LootersCounter: ' + str(i['lootersCounter'])
+            if(len(x)>2000):
+                x = xBefore
+                msg = await ctx.send(x)
+                await msg.add_reaction("❌")
+                x = ''
+                x = x + '\n' + "Item Name: " + str(i['itemName']) + '. LootersCounter: ' + str(i['lootersCounter'])
+        msg = await ctx.send(x)
+        await msg.add_reaction("❌")
+    await ctx.send("Done")
+
 
         
 @bot.command()
