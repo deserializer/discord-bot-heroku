@@ -231,13 +231,13 @@ async def chest(ctx):
     if('chestLog.txt' not in urlDic.keys() or 'lootLogger.csv' not in urlDic.keys()):
         await ctx.send("Wrong files uploaded.")
         return
-    file_requestChestLog = NULL
-    file_requestLogger = NULL
+    file_requestChestLog = None
+    file_requestLogger = None
     file_requestChestLog = requests.get(urlDic['chestLog.txt']).content.decode('utf-8')
     file_requestLogger = requests.get(urlDic['lootLogger.csv']).content.decode('utf-8')
     
-    logLoggerCvsR = NULL
-    chestLoggsCvsR = NULL
+    logLoggerCvsR = None
+    chestLoggsCvsR = None
     logLoggerCvsR = csv.reader(file_requestLogger.splitlines(), delimiter=';')
     chestLoggsCvsR = csv.reader(file_requestChestLog.splitlines(), delimiter='\t')
     chestLoggsDict = chestLoggs(chestLoggsCvsR)
