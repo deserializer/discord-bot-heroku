@@ -256,7 +256,6 @@ async def chest(ctx):
         for i in itemPartialyMissing:   
             if(itemPartialyMissing[i]['left']!={}):
                 yBefore = str(y)
-                print(y)
                 y = y + '\n' + str(itemPartialyMissing[i])
                 if(len(y)>2000):
                     y = yBefore
@@ -264,8 +263,9 @@ async def chest(ctx):
                     await msg.add_reaction("❌")
                     y = ''
                     y = y + '\n' + str(itemPartialyMissing[i])
-        msg = await ctx.send(y)
-        await msg.add_reaction("❌")
+        if(y!=''):
+            msg = await ctx.send(y)
+            await msg.add_reaction("❌")
     if(itemNotInChest!=[]):
         await ctx.send("Item That was never banked")
         x = ''
