@@ -254,7 +254,8 @@ async def chest(ctx):
         y = ''
         for i in itemPartialyMissing:   
             if(itemPartialyMissing[i]['left']!={}):
-                yBefore = y
+                yBefore = str(y)
+                print(y)
                 y = y + '\n' + str(itemPartialyMissing[i])
                 if(len(y)>2000):
                     y = yBefore
