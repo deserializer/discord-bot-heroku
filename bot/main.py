@@ -93,6 +93,7 @@ def getLootLogger(logLoggerCvsR):
             lootLogger[itemNameConstant]['counter'] +=1 
             lootLogger[itemNameConstant]['looters'].append(row[1])
                 
+                
             if(row[1] in lootLogger[itemNameConstant]['lootersCounter']):
                 lootLogger[itemNameConstant]['lootersCounter'][row[1]] += 1
             else:
