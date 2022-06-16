@@ -270,7 +270,7 @@ async def chest(ctx):
         for i in itemPartialyMissing:   
             if(itemPartialyMissing[i]['left']!={}):
                 if(firstBlock):
-                    y = "Item Partially Missing"
+                    y = "**Item Partially Missing**"
                     firstBlock = False
                 yBefore = str(y)
                 y = y + '\n' + str(itemPartialyMissing[i])
@@ -289,7 +289,7 @@ async def chest(ctx):
         firstBlock = True
         for i in itemNotInChest:
             if(firstBlock):
-                x = "Item That was never banked"
+                x = "**Item That was never banked**"
                 firstBlock = False
             xBefore = x
             x = x + '\n' + "Item Name: " + str(i['itemName']) + '. LootersCounter: ' + str(i['lootersCounter'])
