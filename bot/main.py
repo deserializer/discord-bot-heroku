@@ -1,5 +1,7 @@
 # bot.py
+import logging
 import os
+import traceback
 from numpy import empty
 import discord
 from discord.ext.commands import Bot
@@ -249,10 +251,12 @@ async def chest(ctx):
     
     try:
         chestLoggs(chestLoggsCvsR)
-    except ValueError:
-        print("error")
-        return
-    getLootLogger(logLoggerCvsR)
+    except Exception as e:
+        logging.error(traceback.format_exc())
+    try:
+        getLootLogger(logLoggerCvsR)
+    except Exception as e:
+        logging.error(traceback.format_exc())
 
     itemNotInChest, itemPartialyMissing = checker()
     if(itemPartialyMissing!=[]):
