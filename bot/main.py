@@ -144,7 +144,7 @@ async def test(ctx, *args):
     role: discord.Role = discord.utils.get(ctx.message.guild.roles, name=' '.join(args))
 
     if(role not in server.roles):
-        await ctx.send("Role doesn't exist")
+        await ctx.send("Role doesn't existtt")
     else:
         if(role.members != []):
             await ctx.send("Members Under " + role.name + " are:" )
