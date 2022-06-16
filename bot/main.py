@@ -27,7 +27,6 @@ bot = Bot("!",intents=intents)
 def chestLoggs(chestLoggsCvsR):
         for row in chestLoggsCvsR:
             if(row == ['Date', 'Player', 'Item', 'Enchantment', 'Quality', 'Amount']):
-                print(row)
                 continue
             if(len(row)==6):
                 if(True):
@@ -248,8 +247,11 @@ async def chest(ctx):
     
     
     
-    
-    chestLoggs(chestLoggsCvsR)
+    try:
+        chestLoggs(chestLoggsCvsR)
+    except ValueError:
+        print("error")
+        return
     getLootLogger(logLoggerCvsR)
 
     itemNotInChest, itemPartialyMissing = checker()
