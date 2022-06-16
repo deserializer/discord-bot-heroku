@@ -253,10 +253,12 @@ async def chest(ctx):
         chestLoggs(chestLoggsCvsR)
     except Exception as e:
         logging.error(traceback.format_exc())
+        return
     try:
         getLootLogger(logLoggerCvsR)
     except Exception as e:
         logging.error(traceback.format_exc())
+        return
 
     itemNotInChest, itemPartialyMissing = checker()
     if(itemPartialyMissing!=[]):
