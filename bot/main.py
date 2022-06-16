@@ -26,6 +26,7 @@ bot = Bot("!",intents=intents)
 
 def chestLoggs(chestLoggsCvsR):
         for row in chestLoggsCvsR:
+            print(row)
             if(len(row)==6):
                 if(True):
                     itemNameConstant = row[2] + '.' + row[3]
