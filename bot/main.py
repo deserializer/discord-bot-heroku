@@ -253,19 +253,25 @@ async def chest(ctx):
         chestLoggs(chestLoggsCvsR)
     except Exception as e:
         logging.error(traceback.format_exc())
+        msg = await ctx.send("Error with chestLog File")
         return
     try:
         getLootLogger(logLoggerCvsR)
     except Exception as e:
         logging.error(traceback.format_exc())
+        msg = await ctx.send("Error with lootLogger File")
         return
 
     itemNotInChest, itemPartialyMissing = checker()
     if(itemPartialyMissing!=[]):
-        msg = await ctx.send("Item Partially Missing")
+        # msg = await ctx.send("Item Partially Missing")
         y = ''
+        firstBlock = True
         for i in itemPartialyMissing:   
             if(itemPartialyMissing[i]['left']!={}):
+                if(firstBlock):
+                    y = "Item Partially Missing"
+                    firstBlock = False
                 yBefore = str(y)
                 y = y + '\n' + str(itemPartialyMissing[i])
                 if(len(y)>2000):
@@ -278,10 +284,13 @@ async def chest(ctx):
             msg = await ctx.send(y)
             await msg.add_reaction("❌")
     if(itemNotInChest!=[]):
-        await ctx.send("Item That was never banked")
+        # await ctx.send("Item That was never banked")
         x = ''
+        firstBlock = True
         for i in itemNotInChest:
-            lenBefore = len(x)
+            if(firstBlock):
+                x = "Item That was never banked"
+                firstBlock = False
             xBefore = x
             x = x + '\n' + "Item Name: " + str(i['itemName']) + '. LootersCounter: ' + str(i['lootersCounter'])
             if(len(x)>2000):
@@ -292,7 +301,7 @@ async def chest(ctx):
                 x = x + '\n' + "Item Name: " + str(i['itemName']) + '. LootersCounter: ' + str(i['lootersCounter'])
         msg = await ctx.send(x)
         await msg.add_reaction("❌")
-    await ctx.send("Done")
+    # await ctx.send("Done")
 
 
         
