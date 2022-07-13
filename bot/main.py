@@ -14,6 +14,9 @@ import csv
 import os.path
 import json, boto3
 
+from discord.ext import tasks
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 
 
 
@@ -136,6 +139,12 @@ def countByLooters(i,itemPartialyMissing):
                 
         
     return itemPartialyMissing
+
+@client.event
+async def on_ready():
+    print('Bot is ready.')
+    #getSpreadsheetData.start()
+    
 
 @bot.command(pass_context=True)
 async def test(ctx, *args):
@@ -326,7 +335,85 @@ async def commands(ctx):
     await ctx.send("To look a certain role on a user for a spesfic channel use the !X Y. Where X is the name of the role(healer,support,tank) and Y is the name of the channel")
     await ctx.send("To use the logger checker type !chest and attach the chest logs and lootlogger, name of files matter. lootLogger.csv and chestLog.txt. Chest logs should not have header. Loot logger can be uploaded as it is")
 
+#Spreasheet Related Code:
 
+#Creating a player object
+class player:
+    def __init__(self,name):
+        self.name = name
+        self.roles = []
+        self.weapons = []
+
+
+#Automated task that updates the data in the bot every x minutes, needs to be enabled in line 149
+#Won't run for now, needs a credentials.json file
+@tasks.loop(minutes=15)
+async def getSpreadsheetData():
+    scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/spreadsheets',"https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
+    creds = ServiceAccountCredentials.from_json_keyfile_name("credentials.json", scope)
+    client = gspread.authorize(creds)
+
+    sheet = client.open_by_url('https://docs.google.com/spreadsheets/d/1A3Sjs3aqUZjFFlRCw6HqbCMMxzmEtQtesRPjCoSLFBQ/edit#gid=0').worksheet("Sheet1")
+    allvalues = sheet.get_all_values()
+    #Seperating the list of lists returned by the line above
+    weapons = allvalues[1]
+    players = allvalues[2:]
+
+    #Creating a player object for each player and adding them to a list
+    global listofplayers
+    listofplayers = []
+    for v in players:
+        if (v[0]!="" and " " not in v[0]):
+            p = player(v[0])
+
+            #Assigning weapons to players
+            for i in range (len(v)):
+                if v[i]=="YES":
+                    p.weapons.append(weapons[i])
+
+                    #Assigning roles to players depending on collumn number (might need to change if more weapons added to spreadsheet)
+                    if ((i == 1 or i == 2 or i == 3 or i == 4) and (not "Tank" in p.roles)):
+                            p.roles.append("Tank")
+                    elif ((i == 5 or i == 6 or i == 7) and (not "Healer" in p.roles)):
+                        p.roles.append("Healer")
+                    elif ((i == 8 or i == 9 or i == 10 or i == 11) and (not "Support" in p.roles)):
+                        p.roles.append("Support")
+                    elif (not "DPS" in p.roles):
+                        p.roles.append("DPS")
+
+            listofplayers.append(p)
+
+#Calls the function above, enables the possibility of a manual update
+@bot.command(aliases=['upd'])
+async def updatestats(ctx):
+    await getSpreadsheetData()
+
+
+#The commands below use the print function for now instead of ctx.send(), will need to change for the final version
+#Also, showing only the players in specific voice channels feature not yet implemented, coming soon:tm:
+@bot.command()
+async def healers(ctx):
+    global listofplayers
+    print("HEALERS ARE:")
+    for p in listofplayers:
+        if ("Healer" in p.roles):
+            print(p.name)
+
+@bot.command()
+async def weapons(ctx,player):
+    global listofplayers
+    print("WEAPONS:")
+    for p in listofplayers:
+        if (player == p.name):
+            print(p.weapons)
+
+@bot.command()
+async def roles(ctx,player):
+    global listofplayers
+    print("ROLES:")
+    for p in listofplayers:
+        if (player == p.name):
+            print(p.roles)
     
 bot.run(TOKEN)
 
