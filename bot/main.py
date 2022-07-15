@@ -140,7 +140,7 @@ def countByLooters(i,itemPartialyMissing):
         
     return itemPartialyMissing
 
-@client.event
+@bot.event
 async def on_ready():
     print('Bot is ready.')
     #getSpreadsheetData.start()
@@ -339,13 +339,14 @@ async def commands(ctx):
 
 #Creating a player object
 class player:
-    def __init__(self,name):
+    def __init__(self,name,discordID):
         self.name = name
         self.roles = []
         self.weapons = []
+        self.discordID = discordID
 
 
-#Automated task that updates the data in the bot every x minutes, needs to be enabled in line 149
+#Automated task that updates the data in the bot every x minutes, won't run if not enabled in line 146
 #Won't run for now, needs a credentials.json file
 @tasks.loop(minutes=15)
 async def getSpreadsheetData():
@@ -388,17 +389,207 @@ async def getSpreadsheetData():
 async def updatestats(ctx):
     await getSpreadsheetData()
 
+#The commands below create and send an embed that shows players of the healer,tank,support and dps roles on the selected voice channel.
+#Below each player's name appear all the weapons they can play according to the spreadsheet
+@bot.command(aliases=["heals"])
+async def healersOnVoice(ctx,*,args = None):
+    if args == None:
+        await ctx.send("Missing arguments, no Voice Channel selected")
+    else:
+        healerList = []
+        global listofplayers
+        for p in listofplayers:
+            if ("Healer" in p.roles):
+                healerList.append(p)
 
-#The commands below use the print function for now instead of ctx.send(), will need to change for the final version
-#Also, showing only the players in specific voice channels feature not yet implemented, coming soon:tm:
+        if healerList == []:
+            await ctx.send("No healers found in the list, are you sure the data in the bot is up to date with the spreadsheet?")
+        else:
+            healersOnComms = []
+            channel: discord.Channel = discord.utils.get(ctx.message.guild.channels, name=args)
+            if channel != None:
+                if channel.members == []:
+                    await ctx.send("No Users in Voice Channel '" + args + "'")
+                    return
+                else:
+                    for member in channel.members:
+                        for h in healerList:
+                            if str(member.id) == str(h.discordID):
+                                healersOnComms.append(h)
+
+                embed = discord.Embed(title=':ambulance:  Healers on ' + args + '  :ambulance: ',description="",colour=discord.Colour.green())
+                embed.set_thumbnail(url="https://cdn3.iconfinder.com/data/icons/weapon-mmorpg-game/100/Staff-14-512.png")
+                #Footer
+                embed.set_footer(text = "made with love by 123xd")
+                
+                for healer in healersOnComms:
+                    weaponsString = ""
+                    for weapon in healer.weapons:
+                        weaponsString = weaponsString + weapon + ", "
+                    weaponsString = weaponsString[:-2]
+                    embed.add_field(name=healer.name,value=weaponsString)
+
+                await ctx.send(embed=embed)
+            else:
+                await ctx.send("Channel not found")
+
+@bot.command(aliases=["tanks"])
+async def tanksOnVoice(ctx,*,args = None):
+    if args == None:
+        await ctx.send("Missing arguments, no Voice Channel selected")
+    else:
+        TankList = []
+        global listofplayers
+        for p in listofplayers:
+            if ("Tank" in p.roles):
+                TankList.append(p)
+
+        if TankList == []:
+            await ctx.send("No Tanks found in the list, are you sure the data in the bot is up to date with the spreadsheet?")
+        else:
+            tanksOnComms = []
+            channel: discord.Channel = discord.utils.get(ctx.message.guild.channels, name=args)
+            if channel != None:
+                if channel.members == []:
+                    await ctx.send("No Users in Voice Channel '" + args + "'")
+                    return
+                else:
+                    for member in channel.members:
+                        for x in TankList:
+                            if str(member.id) == str(x.discordID):
+                                tanksOnComms.append(x)
+
+                embed = discord.Embed(title=':shield:  Tanks on ' + args + '  :shield:',description="",colour=discord.Colour.blue())
+                embed.set_thumbnail(url="https://cdn0.iconfinder.com/data/icons/game-20/64/online_game_weapon_fight_equipment-05-256.png")
+                #Footer
+                embed.set_footer(text = "made with love by 123xd")
+
+                for tank in tanksOnComms:
+                    weaponsString = ""
+                    for weapon in tank.weapons:
+                        weaponsString = weaponsString + weapon + ", "
+                    weaponsString = weaponsString[:-2]
+                    embed.add_field(name=tank.name,value=weaponsString)
+
+                await ctx.send(embed=embed)
+            else:
+                await ctx.send("Channel not found")
+    
+@bot.command(aliases=["supps"])
+async def suppsOnVoice(ctx,*,args = None):
+    if args == None:
+        await ctx.send("Missing arguments, no Voice Channel selected")
+    else:
+        supportList = []
+        global listofplayers
+        for p in listofplayers:
+            if ("Support" in p.roles):
+                supportList.append(p)
+
+        if supportList == []:
+            await ctx.send("No Supports found in the list, are you sure the data in the bot is up to date with the spreadsheet?")
+        else:
+            suppsOnComms = []
+            channel: discord.Channel = discord.utils.get(ctx.message.guild.channels, name=args)
+            if channel != None:
+                if channel.members == []:
+                    await ctx.send("No Users in Voice Channel '" + args + "'")
+                    return
+                else:
+                    for member in channel.members:
+                        for x in supportList:
+                            if str(member.id) == str(x.discordID):
+                                suppsOnComms.append(x)
+
+                embed = discord.Embed(title=':tools:  Supports on ' + args + '  :tools:',description="",colour=discord.Colour.gold())
+                embed.set_thumbnail(url="https://cdn3.iconfinder.com/data/icons/weapon-mmorpg-game/100/Staff-15-512.png")
+                #Footer
+                embed.set_footer(text = "made with love by 123xd")
+                
+                for supp in suppsOnComms:
+                    weaponsString = ""
+                    for weapon in supp.weapons:
+                        weaponsString = weaponsString + weapon + ", "
+                    weaponsString = weaponsString[:-2]
+                    embed.add_field(name=supp.name,value=weaponsString)
+
+                await ctx.send(embed=embed)
+            else:
+                await ctx.send("Channel not found")
+
+@bot.command(aliases=["dps"])
+async def dpsOnVoice(ctx,*,args = None):
+    if args == None:
+        await ctx.send("Missing arguments, no Voice Channel selected")
+    else:
+        dpsList = []
+        global listofplayers
+        for p in listofplayers:
+            if ("DPS" in p.roles):
+                dpsList.append(p)
+
+        if dpsList == []:
+            await ctx.send("No DPS found in the list, are you sure the data in the bot is up to date with the spreadsheet?")
+        else:
+            dpsOnComms = []
+            channel: discord.Channel = discord.utils.get(ctx.message.guild.channels, name=args)
+            if channel != None:
+                if channel.members == []:
+                    await ctx.send("No Users in Voice Channel '" + args + "'")
+                    return
+                else:
+                    for member in channel.members:
+                        for x in dpsList:
+                            if str(member.id) == str(x.discordID):
+                                dpsOnComms.append(x)
+
+                embed = discord.Embed(title=':crossed_swords:  DPS on ' + args + '  :crossed_swords:',description="",colour=discord.Colour.red())
+                embed.set_thumbnail(url="https://cdn2.iconfinder.com/data/icons/sports-161/100/Fencing-256.png")
+                #Footer
+                embed.set_footer(text = "made with love by 123xd")
+
+                for dps in dpsOnComms:
+                    weaponsString = ""
+                    for weapon in dps.weapons:
+                        weaponsString = weaponsString + weapon + ", "
+                    weaponsString = weaponsString[:-2]
+                    embed.add_field(name=dps.name,value=weaponsString)
+
+                await ctx.send(embed=embed)
+            else:
+                await ctx.send("Channel not found")
+
+#Something like a "sign up" command that when used adds the user's discord id to the correct row
 @bot.command()
-async def healers(ctx):
+async def confirm(ctx,nameInSpreadsheet = None):
     global listofplayers
-    print("HEALERS ARE:")
+    usernameList = []
     for p in listofplayers:
-        if ("Healer" in p.roles):
-            print(p.name)
+        usernameList.append(p.name)
 
+    if nameInSpreadsheet == None:
+        await ctx.send("Missing arguments, please type in your AO username")
+    elif nameInSpreadsheet not in usernameList:
+        await ctx.send("Username not found in the spreadsheet, please make sure you typed your username correctly and try again")
+    else:
+        scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/spreadsheets',"https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
+        creds = ServiceAccountCredentials.from_json_keyfile_name("credentials.json", scope)
+        client = gspread.authorize(creds)
+
+        sheet = client.open_by_url('https://docs.google.com/spreadsheets/d/1A3Sjs3aqUZjFFlRCw6HqbCMMxzmEtQtesRPjCoSLFBQ/edit#gid=0').worksheet("Sheet1")
+        allvalues = sheet.get_all_values()
+
+        i=1
+        for value in allvalues:
+            if value[0] == nameInSpreadsheet:
+                break
+            else:
+                i+=1
+
+        sheet.update_cell(i, 28, str(ctx.author.id))
+        await ctx.send("Confirmation Success for " + nameInSpreadsheet)
+
+#These need to be adjusted if they are to be useful
 @bot.command()
 async def weapons(ctx,player):
     global listofplayers
