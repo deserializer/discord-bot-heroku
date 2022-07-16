@@ -332,8 +332,14 @@ async def on_raw_reaction_add(payload):
     
 @bot.command()
 async def commands(ctx):
-    await ctx.send("To look a certain role on a user for a spesfic channel use the !X Y. Where X is the name of the role(healer,support,tank) and Y is the name of the channel")
+    await ctx.send("To look a certain role on a user for a specific channel use the !X Y. Where X is the name of the role(healer,support,tank) and Y is the name of the channel")
     await ctx.send("To use the logger checker type !chest and attach the chest logs and lootlogger, name of files matter. lootLogger.csv and chestLog.txt. Chest logs should not have header. Loot logger can be uploaded as it is")
+    await ctx.send("Spreadsheet related:\n"
+    +"To check which players of a role are on a channel use !(role) (voice channel) format, for example !tanks Joint Ops 2\n"
+    + "The role commands are !tanks, !healers/heals, !supports/!supps and !dps")
+    await ctx.send("To add your discord id to the spreadsheet so the bot can recognize you, use !confirm (username) "
+    + "the username argument must be the same as in the spreadsheet, do NOT use other people's usernames")
+    await ctx.send("To manually update the data from the spreadsheet use the !updatestats or !upd command")
 
 #Spreasheet Related Code:
 
@@ -392,7 +398,7 @@ async def updatestats(ctx):
 
 #The commands below create and send an embed that shows players of the healer,tank,support and dps roles on the selected voice channel.
 #Below each player's name appear all the weapons they can play according to the spreadsheet
-@bot.command(aliases=["heals"])
+@bot.command(aliases=["heals","healers"])
 async def healersOnVoice(ctx,*,args = None):
     if args == None:
         await ctx.send("Missing arguments, no Voice Channel selected")
@@ -476,7 +482,7 @@ async def tanksOnVoice(ctx,*,args = None):
             else:
                 await ctx.send("Channel not found")
     
-@bot.command(aliases=["supps"])
+@bot.command(aliases=["supps","supports"])
 async def suppsOnVoice(ctx,*,args = None):
     if args == None:
         await ctx.send("Missing arguments, no Voice Channel selected")
