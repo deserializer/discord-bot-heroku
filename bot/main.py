@@ -23,6 +23,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 chestLoggsDict = {}
 lootLogger = {}
 itemNamesDict = {}
+listofplayers = []
 TOKEN = os.getenv("DISCORD_TOKEN")
 intents = discord.Intents.default()
 intents.members = True
