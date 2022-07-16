@@ -84,6 +84,24 @@ def getItemNames():
             itemNamesDict[rowString[1].rstrip().lstrip()] = rowString[2].lstrip().rstrip()
     return itemNamesDict
 
+def getCredentialsForDrive():
+    client = boto3.client('s3',
+        aws_access_key_id = os.getenv("AWS_ACCESS_KEY_ID"),
+        aws_secret_access_key = os.getenv("AWS_SECRET_ACCESS_KEY"),
+        region_name = os.getenv("REGION_NAME")
+    )
+    resource = boto3.resource(
+        's3',
+        aws_access_key_id = os.getenv("AWS_ACCESS_KEY_ID"),
+        aws_secret_access_key = os.getenv("AWS_SECRET_ACCESS_KEY"),
+        region_name = os.getenv("REGION_NAME")
+    )
+    obj = client.get_object(
+        Bucket = os.getenv("S3_BUCKET"),
+        Key = os.getenv("credentials")
+    )
+    return obj
+
 def getLootLogger(logLoggerCvsR):
     itemName = {}
     itemName = getItemNames()
@@ -143,7 +161,7 @@ def countByLooters(i,itemPartialyMissing):
 @bot.event
 async def on_ready():
     print('Bot is ready.')
-    #getSpreadsheetData.start()
+    # getSpreadsheetData.start()
     
 
 @bot.command(pass_context=True)
@@ -357,7 +375,7 @@ class player:
 @tasks.loop(minutes=15)
 async def getSpreadsheetData():
     scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/spreadsheets',"https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
-    creds = ServiceAccountCredentials.from_json_keyfile_name("credentials.json", scope)
+    creds = ServiceAccountCredentials.from_json_keyfile_name(credentials, scope)
     client = gspread.authorize(creds)
 
     sheet = client.open_by_url('https://docs.google.com/spreadsheets/d/1A3Sjs3aqUZjFFlRCw6HqbCMMxzmEtQtesRPjCoSLFBQ/edit#gid=0').worksheet("Sheet1")
