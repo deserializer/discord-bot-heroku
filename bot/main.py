@@ -357,8 +357,11 @@ async def getSpreadsheetData():
     sheet = client.open_by_url('https://docs.google.com/spreadsheets/d/1A3Sjs3aqUZjFFlRCw6HqbCMMxzmEtQtesRPjCoSLFBQ/edit#gid=0').worksheet("Sheet1")
     allvalues = sheet.get_all_values()
     #Seperating the list of lists returned by the line above
+    upperRow = allvalues[0]
     weapons = allvalues[1]
     players = allvalues[2:]
+
+    category = ""
 
     #Creating a player object for each player and adding them to a list
     global listofplayers
@@ -366,21 +369,19 @@ async def getSpreadsheetData():
     for v in players:
         if (v[0]!="" and " " not in v[0]):
             p = player(v[0])
+            
+            #Determining current role
+            if upperRow[i].split(" ")[0] != "":
+                        category =  upperRow[i].split(" ")[0]
 
             #Assigning weapons to players
             for i in range (len(v)):
                 if v[i]=="YES":
                     p.weapons.append(weapons[i])
 
-                    #Assigning roles to players depending on collumn number (might need to change if more weapons added to spreadsheet)
-                    if ((i == 1 or i == 2 or i == 3 or i == 4) and (not "Tank" in p.roles)):
-                            p.roles.append("Tank")
-                    elif ((i == 5 or i == 6 or i == 7) and (not "Healer" in p.roles)):
-                        p.roles.append("Healer")
-                    elif ((i == 8 or i == 9 or i == 10 or i == 11) and (not "Support" in p.roles)):
-                        p.roles.append("Support")
-                    elif (not "DPS" in p.roles):
-                        p.roles.append("DPS")
+                    #Assigning current role to player
+                    if not category in p.roles:
+                        p.roles.append(category)
 
             listofplayers.append(p)
 
