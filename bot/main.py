@@ -230,6 +230,7 @@ def takeDate(self, nav):
         return mydate
         
 
-        
-        
-bot.run("OTk3MDc3MjcwMjc3NjYwNzIz.G79Gi3.j1TWencAVb5GXzk66TkuS2NxRXX8TdHPa5cpzY")
+with open('token.txt') as f:
+    TOKEN = f.readline()
+
+bot.run(TOKEN)
