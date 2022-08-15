@@ -1,1 +1,3 @@
 discord.py
+async-timeout
+lxml
